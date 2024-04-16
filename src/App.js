@@ -6,10 +6,12 @@ import React from "react"
 import Navbar from "./components/layout/Navbar"
 import Footer from "./components/layout/Footer"
 import { GithubProvider } from "./context/github/GithubContext"
+import { AlertProvider } from "./context/github/alert/AlertContext"
 
 export default function App() {
     return (
         <GithubProvider>
+            <AlertProvider>
         <Router>
             <div className="flex flex-col justify-between h-screen">
                 <Navbar />
@@ -28,6 +30,7 @@ export default function App() {
                 </div>
 
         </Router >
+        </AlertProvider>
         </GithubProvider>
     )
 }
