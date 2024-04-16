@@ -13,6 +13,13 @@ const githubReducer = (state, action) => {
                 ...state,
                 loading: true,
             }
+            //puts the single user in the state
+            case 'GET_USER':
+              return{
+                ...state,
+                user: action.payload,
+                loading: false
+              }
             //called from GithubContext
             case 'CLEAR_USERS':
               return {
