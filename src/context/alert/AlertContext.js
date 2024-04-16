@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import AlertReducer from './AlertReducer'
+import alertReducer from './AlertReducer'
 
 const AlertContext = createContext()
 
@@ -8,7 +8,7 @@ export const AlertProvider = ({children}) => {
     const initialState = null
 
     //useReducer hook
-    const [state, dispatch] = useReducer(AlertReducer, initialState)
+    const [state, dispatch] = useReducer(alertReducer, initialState)
 
     //set an alert
     const setAlert = (msg, type) => {
@@ -26,11 +26,11 @@ export const AlertProvider = ({children}) => {
         //passes values in as an object, which is alert and we passed in the entire state. 
         //also passes in setAlert, which holds a msg and type, which gets put into state
     return (
-    <AlertContext.Provider value={{alert: state, setAlert }}>
+        <AlertContext.Provider value={{ alert: state, setAlert }}>
         {/* children prop */}
         {children}
     </AlertContext.Provider>
     )
 }
 
-export default AlertReducer
+export default AlertContext

@@ -1,5 +1,5 @@
 //takes in state and action
-const AlertReducer =(state, action) => {
+const alertReducer =(state, action) => {
     //evaluates action.type
     switch(action.type) {
         case 'SET_ALERT':
@@ -12,3 +12,5 @@ const AlertReducer =(state, action) => {
                     return state
     }
 }
+
+export default alertReducer
