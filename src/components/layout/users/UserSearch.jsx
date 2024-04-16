@@ -4,7 +4,7 @@ import GithubContext from "../../../context/github/GithubContext"
 function UserSearch() {
     const [text, setText] = useState('')
 
-    const {users, searchUsers} = useContext(GithubContext)
+    const {users, searchUsers, clearUsers} = useContext(GithubContext)
 
     //updates the state, which is the text, to whatever is typed in
     const handleChange = (e) => setText(e.target.value)
@@ -43,14 +43,12 @@ function UserSearch() {
             </div>
         </form>
         </div>
-{/* meant to only shows the clear button if something has been typed in the search bar but could not get it to work*/}
-{/*  {user.length > 0 && (  */}
-            <div>
-            <button className="btn btn-ghost btn-lg">
+{/* only shows clear buttons when something has been searched */}
+  {users.length > 0 && ( 
+            <button onClick={clearUsers} className="btn btn-ghost btn-lg">
                 Clear
             </button>
-        </div>
-        {/*  )}  */}
+          )}  
     </div>
     )
 }

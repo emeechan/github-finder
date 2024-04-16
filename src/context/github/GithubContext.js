@@ -37,6 +37,9 @@ export const GithubProvider = ({children}) => {
     })
 }
 
+//clear users from state
+const clearUsers = () => dispatch({type: 'CLEAR_USERS'})
+
 //set loading
 const setLoading = () => dispatch({type:'SET_LOADING'})
 
@@ -44,11 +47,13 @@ return ( <GithubContext.Provider value={{
     //the dispatch is updating the state so we have to pass it down to the components as shown below
     users: state.users,
     loading: state.loading,
-    searchUsers
+    searchUsers,
+    clearUsers,
 }}>
     {children}
     </GithubContext.Provider>
 )
 }
+
 
 export default GithubContext
