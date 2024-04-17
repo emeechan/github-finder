@@ -1,6 +1,7 @@
 import { createRenderer } from 'react-dom/test-utils'
 import githubReducer from './GithubReducer'
 import {createContext, useReducer} from 'react'
+import { getQueriesForElement } from '@testing-library/react'
 
 const GithubContext = createContext()
 
@@ -17,28 +18,6 @@ export const GithubProvider = ({children}) => {
 
     const [state, dispatch] = useReducer(githubReducer, initialState)
 
-    // get search results
-    const searchUsers = async (text) => {
-        setLoading()
-
-        const params = new URLSearchParams({
-            q: text
-        })
-
-        const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
-        headers: {
-            Authorization: `token ${GITHUB_TOKEN}`
-        }
-    })
-
-    const {items} = await response.json()
-
-    //dispatches the type to the githubReducer
-    dispatch({
-        type: 'GET_USERS',
-        payload: items,
-    })
-}
 
 // get single user
 const getUser = async (login) => {
@@ -92,18 +71,17 @@ dispatch({
 const clearUsers = () => dispatch({type: 'CLEAR_USERS'})
 
 //set loading
-const setLoading = () => dispatch({type:'SET_LOADING'})
+const setLoading = () => dispatch({ type:'SET_LOADING' })
 
-return ( <GithubContext.Provider value={{
+return ( 
+    <GithubContext.Provider
     //the dispatch is updating the state so we have to pass it down to the components as shown below
-    users: state.users,
-    loading: state.loading,
-    user: state.user,
-    repos: state.repos,
-    searchUsers,
-    clearUsers,
-    getUser,
-    getUserRepos,
+    value ={{
+        ...state,
+        dispatch,
+        clearUsers,
+        getUser,
+        getUserRepos,
 }}>
     {children}
     </GithubContext.Provider>
